@@ -290,8 +290,8 @@ body{overflow-x:hidden;}
    CONFIGURAÇÃO — cole aqui os dados do seu projeto Supabase
    (Project Settings → API). Veja o LEIA-ME.md, passo 3.
    ============================================================ */
-var SUPABASE_URL = 'https://qjcnsuepguynrbelqvcy.supabase.co';       // ex.: https://abcdefgh.supabase.co
-var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFqY25zdWVwZ3V5bnJiZWxxdmN5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ1NzgxMDUsImV4cCI6MjEwMDE1NDEwNX0.XZYsKrcTVS6yY9XE4VNYqFHl9ptFcSDyCJ7mTtPD7xE';     // chave "anon public"
+var SUPABASE_URL = 'https://zkdjlzgqptigamxsqaoj.supabase.co';       // ex.: https://abcdefgh.supabase.co
+var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InprZGpsemdxcHRpZ2FteHNxYW9qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4MDc5OTksImV4cCI6MjA5NTM4Mzk5OX0.a5mMduurVsp5G71P6coMtLKStMMPzVsHeYiBdhnzp88';     // chave "anon public"
 
 /* ---------- máscaras ---------- */
 function soDigitos(v){ return (v||'').replace(/\D+/g,''); }
@@ -505,7 +505,7 @@ document.getElementById('form').addEventListener('submit', function(ev){
   var passageiros = [];
   lista.querySelectorAll('.pax').forEach(function(card){
     passageiros.push({
-      cliente_id: clienteId,
+      cadastro_id: clienteId,
       nome: up(card.querySelector('[data-p="nome"]').value),
       sobrenome: up(card.querySelector('[data-p="sobrenome"]').value),
       cpf: soDigitos(card.querySelector('[data-p="cpf"]').value),
@@ -513,9 +513,9 @@ document.getElementById('form').addEventListener('submit', function(ev){
     });
   });
 
-  var passo = clienteEnviadoId ? Promise.resolve() : inserir('clientes', cliente).then(function(){ clienteEnviadoId = clienteId; });
+  var passo = clienteEnviadoId ? Promise.resolve() : inserir('b2c_form_cadastros', cliente).then(function(){ clienteEnviadoId = clienteId; });
   passo
-    .then(function(){ return passageiros.length ? inserir('passageiros', passageiros) : null; })
+    .then(function(){ return passageiros.length ? inserir('b2c_form_passageiros', passageiros) : null; })
     .then(function(){
       document.getElementById('tela-form').style.display = 'none';
       document.getElementById('tela-ok').classList.add('visivel');
